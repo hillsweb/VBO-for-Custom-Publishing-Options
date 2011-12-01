@@ -1,0 +1,9 @@
+; $Id:$
+name = VBO for Custom Publishing Options 
+description = A collection of client-specific helper functions
+package = hillsweb
+dependencies[] = views_bulk_operations
+dependencies[] = custom_pub
+core = 6.x
+version = "6.x-1.x-dev"
+core = "6.x"

@@ -1,0 +1,32 @@
+<?
+/**
+ * Implementation of hook_node_operations().
+ */
+function custom_pub_vbo_node_operations() {
+	$types = variable_get('custom_pub_types', array());	
+	$options = array(); 	
+	foreach($types as $type => $arr) {
+	
+  $operations[$type] = array(
+      'label' => t($arr['name']),
+      'callback' => 'custom_pub_vbo_work',
+	  'callback arguments' => array($type),
+    );	
+}	
+  return $operations;
+}
+
+
+function custom_pub_vbo_work($nodes=array(), $type = NULL) {
+	$types = variable_get('custom_pub_types', array());	
+	$operation = $types[$type];
+	if(is_array($operation) && is_array($operation['node_types'])) {	
+		foreach($nodes as $nid) {		
+			$node = node_load($nid);
+			if(array_key_exists($node->type,$operation['node_types'])) {
+			$node->$operation['type'] = 1;
+			node_save($node);			
+		}
+	}
+} 
+}
